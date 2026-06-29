@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worklog — Levit AI 직무과제: 분류·속성 파이프라인 설계 → 웹/PDF 배포 · 2026-06-29</title>
+<style>
+:root{--paper:#fff;--bg:#f6f5fb;--ink:#1b1a22;--ink-2:#54516a;--muted:#5f5c72;
+--line:#e9e6f2;--line-2:#f0eef7;--violet:#7c3aed;--violet-deep:#6d28d9;--wash:#f3effd;--card:#faf9fe;
+--good:#15803d;--warn:#b45309;--crit:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Segoe UI",system-ui,sans-serif;
+font-size:15.5px;line-height:1.72;-webkit-font-smoothing:antialiased;padding:clamp(16px,4vw,52px) 14px}
+.sheet{max-width:860px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+padding:clamp(26px,5.5vw,60px);box-shadow:0 1px 2px rgba(27,26,34,.04),0 18px 50px -28px rgba(124,58,237,.18)}
+h1{font-size:clamp(1.7rem,4.6vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0 0 .5em;text-wrap:balance}
+h2{font-size:clamp(1.25rem,3.2vw,1.5rem);font-weight:800;margin:1.7em 0 .1em;padding-bottom:.28em;position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:0;width:38px;height:3px;background:var(--violet);border-radius:2px}
+h3{font-size:1.05rem;font-weight:700;margin:1.3em 0 .2em}
+p{margin:.7em 0}
+strong{font-weight:700}
+a{color:var(--violet-deep);text-decoration:underline;text-underline-offset:2px}
+a:focus-visible{outline:2px solid var(--violet);outline-offset:2px;border-radius:2px}
+code{background:var(--wash);border:1px solid var(--line);border-radius:5px;padding:.08em .35em;font-size:.88em;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ul,ol{margin:.6em 0;padding-left:1.4em}
+li{margin:.28em 0}
+li::marker{color:var(--violet)}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+blockquote{margin:1em 0;padding:.6em 1em;background:var(--wash);border:1px solid #e5dcfb;
+border-left:4px solid var(--violet);border-radius:0 10px 10px 0;color:var(--ink-2)}
+blockquote p:first-child{margin-top:0}blockquote p:last-child{margin-bottom:0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:1em 0}
+table{border-collapse:collapse;width:100%;font-size:.92em;min-width:480px}
+thead th{background:var(--wash);color:var(--violet-deep);text-align:left;font-weight:700;font-size:.85em;
+letter-spacing:.03em;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid #e5dcfb}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line-2);vertical-align:top;color:#37353f}
+tbody tr:last-child td{border-bottom:0}
+tbody td:first-child{font-weight:600;color:var(--ink)}
+.verdict{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 1.4em;padding:13px 16px;
+background:var(--card);border:1px solid var(--line);border-radius:11px}
+.vlabel{font-weight:700;font-size:.82em;color:var(--muted);margin-right:4px}
+.vchip{font-size:.78em;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff}
+.v-good{background:var(--good)}.v-warn{background:var(--warn)}.v-crit{background:var(--crit)}
+footer,.muted{color:var(--muted)}
+@media(max-width:520px){body{font-size:15px}}
+</style>
+</head>
+<body>
+<main class="sheet">
+
+<h1>Worklog — Levit AI 직무과제: 분류·속성 파이프라인 설계 → 웹/PDF 배포 · 2026-06-29</h1>
+<h2>한 일 (What we did)</h2>
+<p>"500만 상품 × 1만 카테고리" 규모의 두 AI 파이프라인(카테고리 분류 / 속성 추출)을 <strong>설계 문서</strong>로 만들고, 한국형 트렌디 웹 + PDF로 빌드해 GitHub Pages에 배포했다. 코드 구현 과제가 아니라 *설계와 그 근거*가 산출물이라, 작업의 무게중심은 (1) 무엇을 증명할지 정하기, (2) 시간민감 사실을 검증해 방어 가능한 설계를 쓰기, (3) 평가자가 읽기 좋게 시각화하기 — 셋이었다. 초기 전체 산출물이 커밋 <code>3994440</code>, 이후 라이트 디폴트 전환이 <code>0d52510</code>. 두 커밋 사이의 진짜 이야기는 git log가 담지 못하는 <strong>결정의 이유와 반복 피드백</strong>이다.</p>
+<h2>결정과 왜 (Decisions &amp; why)</h2>
+<div class="tbl"><table><thead><tr><th>결정</th><th>버린 대안</th><th>왜</th></tr></thead><tbody><tr><td><code>/deep-interview</code>로 요구사항부터 고정</td><td>바로 설계 착수</td><td>코드가 아닌 설계 과제라 "무엇을 증명하나(포지셔닝)"가 모든 깊이 결정을 좌우. 모호도 100%→13%로 내린 뒤 시작</td></tr><tr><td>포지셔닝 = 프로덕션 실용성·트레이드오프 논증·비용감각(시니어 IC)</td><td>연구/혁신 과시, 제품/임팩트</td><td>제출 후 "기술 심화 면접"이 명시 → "왜 이 선택인가"를 방어하는 설계가 가장 강함</td></tr><tr><td>분류 = "Distilled Funnel"(임베딩→ANN→계층 rerank→신뢰도 routing)</td><td>단일 거대 분류기 / 순수 LLM 분류</td><td>1만 클래스는 flat도 가능하나 cold-start·롱테일·계층일관성에 약함. 깔때기는 단계별 독립 튜닝 + 하드케이스만 비싼 모델</td></tr><tr><td><strong>비용은 binding 제약이 아니다</strong>를 핵심 논점으로</td><td>비용 최소화를 전면에</td><td>검증된 단가로 계산하니 self-host 하이브리드 전수처리 ~$1–5K(예산의 5–7%). naive 전수 LLM은 $75–150K로 초과 → "어디에 비싼 걸 쓰나"가 설계의 본체</td></tr><tr><td>정답 데이터 = LLM 교사 라벨링 → distillation</td><td>사람 전수 라벨 / 라벨 없이 학습</td><td>분류 모델을 새로 만든다 = 정답 leaf가 없다. 이 공백을 푸는 방식이 설계 성패. 비싼 모델은 가르치는 데 한 번만</td></tr><tr><td>포괄성(CE) 측정 = 검색로그 gap 마이닝</td><td>golden recall만</td><td>"빠짐없음"은 모르는 걸 재야 하는 열린 문제. 실서비스(올웨이즈)에선 "원했는데 못 채운 검색"이 측정 가능한 누락 신호</td></tr><tr><td>단일 마크다운 → 웹+PDF 커스텀 정적 빌드</td><td>SSG(Astro/MkDocs), Mermaid</td><td>Linear/Stripe-docs 미감 + PDF 견고함을 위해 풀 컨트롤. 다이어그램도 HTML/CSS로(테마·PDF·no-JS 모두 견고, Mermaid는 PDF 렌더 불안정)</td></tr><tr><td>인용은 검증 후 references로</td><td>본문에 시스템명 나열</td><td>1차 검증 결과 BEATS·AutoPKG·MADIAVE는 실재(venue 교정), macro-F1 비교치는 출처불명 → 후자는 제거. 본문은 명명 없이도 성립하게</td></tr><tr><td>라이트 디폴트(다크는 토글)</td><td>OS <code>prefers-color-scheme</code> 추종</td><td>평가자 첫인상을 일관되게. 사용자가 고른 다크만 저장·유지</td></tr></tbody></table></div>
+<h2>배운 것 (Learned)</h2>
+<ul><li><strong><code>color-scheme</code>는 스크롤바뿐 아니라 인쇄 캔버스 배경을 결정한다.</strong> 스크롤바 라이트화로 넣은 <code>color-scheme</code>가 헤드리스(OS 다크)에서 PDF 페이지 여백을 검게 만든 회귀 → <code>@media print { color-scheme: light }</code>로 차단. (화면 fix가 인쇄에 샌 사례)</li><li><strong>점진적 향상 애니메이션은 기본이 "보이는" 상태여야 한다.</strong> reveal을 <code>opacity:0</code>에서 시작했더니 PDF/no-JS에서 사라짐 → 인라인 width + CSS 키프레임(0→값), print는 강제 가시화.</li><li><strong>모바일 브레이크포인트는 인쇄에서도 켜진다.</strong> A4(~794px) &lt; 980px라 PDF에서 카드가 1열로 쌓임(가독상 허용).</li><li><strong>시간민감 사실(LLM 가격·모델·SOTA)은 기억이 아니라 웹 1차 소스로.</strong> cutoff 이후 드리프트가 커서 6개 병렬 에이전트로 검증·인용.</li><li><strong>과한 인용 보수화는 진짜 인용을 지운다.</strong> 미래시점 arxiv ID를 할루시네이션으로 단정해 실재 시스템을 뺐다가, 검증 후 복원. 의심 시 "지우기" 전에 "검증"이 먼저.</li></ul>
+<h2>세션 흐름 (How it moved)</h2>
+<ol><li><code>/deep-interview</code> 6라운드 → 스펙 확정(포지셔닝·산출물·기술 stance).</li><li>6개 병렬 리서치(한국어 모델·API가·GPU경제성·분류SOTA·속성·회사맥락) → <code>research-synthesis</code>로 종합.</li><li>Opus가 설계 7장 작성(00 요약 ~ 06 AI활용).</li><li>커스텀 정적 빌드(웹+PDF), puppeteer/pdftoppm로 시각 검증.</li><li>사용자 피드백 반복: 시각 다이어그램 5개·강한 도입 요약·de-slop(어려운 용어 정리)·헤더 가림·라이트 스크롤바·<strong>PDF 검은 여백 회귀</strong>·라이트 디폴트.</li><li>givepro91 계정으로 리포 생성·push·Pages 활성화 → 라이브 확인 → jay-swk 복원.</li></ol>
+<h2>남긴 것 (Left open)</h2>
+<ul><li><strong>차단 없음.</strong> 선택적 후속: 더 깊은 de-slop, 커스텀 도메인 연결, 검증된 인용을 본문에 일부 복원, MAVE 저자소속 같은 PARTIAL 교정의 인라인 반영.</li><li><code>.omc/</code>(deep-interview 스펙·리서치 종합)는 의도적으로 리포에서 제외(작업 노트). 과정 서사는 6장에 정제본으로 존재.</li></ul>
+<h2>결과·검증 (Outcome)</h2>
+<ul><li><strong>배포됨:</strong> public 리포 <code>givepro91/levit-ai</code>, 라이브 <code>https://givepro91.github.io/levit-ai/</code>(HTTP 200), PDF <code>assignment.pdf</code>(36p).</li><li><strong>검증(수동):</strong> 웹은 puppeteer 스크린샷으로 히어로·5개 다이어그램·비용차트·모바일·<strong>라이브 공개 URL</strong>까지 확인. PDF는 pdftoppm 페이지 렌더로 라이트 배경·다이어그램·비용차트·클리핑 없음 확인. 라이브는 curl 200 + DOM 요소(다이어그램 5·Pretendard·PDF 링크) 확인.</li><li><strong>자동 검증 없음:</strong> <code>/gate</code> 미실행이라 <code>.nova/gate-verdict.json</code> 없음 → 본 기록의 "검증"은 전부 수동 도구(puppeteer·pdftoppm·curl) 기반임을 명시.</li></ul>
+</main>
+</body>
+</html>
