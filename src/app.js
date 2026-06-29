@@ -4,10 +4,9 @@
 
   // ---- theme ----
   var root = document.documentElement;
+  // 기본은 항상 라이트. 사용자가 직접 다크로 토글한 경우(localStorage)만 그 선택을 따른다.
   var saved = localStorage.getItem("theme");
   if (saved) root.setAttribute("data-theme", saved);
-  else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    root.setAttribute("data-theme", "dark");
 
   function toggleTheme() {
     var cur = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
